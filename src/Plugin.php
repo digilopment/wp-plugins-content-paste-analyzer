@@ -6,8 +6,8 @@ use CPA\Admin\AdminNotice;
 use CPA\Admin\PasteAdminPage;
 use CPA\Admin\PasteDetector;
 use CPA\Admin\SuspectAdminPage;
-use CPA\Core\ArticleMeta;
 use CPA\Core\ContentValidator;
+use CPA\Core\Settings;
 use WP_Post;
 use function add_action;
 use function is_plugin_active;
@@ -45,9 +45,9 @@ class Plugin
         $has_issue = $validator->isValidArticle();
 
         if ($has_issue) {
-            update_post_meta($post_id, ArticleMeta::CPA_DIRTY_HTML, 1);
+            update_post_meta($post_id, Settings::CPA_DIRTY_HTML, 1);
         } else {
-            update_post_meta($post_id, ArticleMeta::CPA_DIRTY_HTML, 0);
+            update_post_meta($post_id, Settings::CPA_DIRTY_HTML, 0);
         }
     }
 }

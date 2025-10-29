@@ -2,7 +2,7 @@
 
 namespace CPA\Admin;
 
-use CPA\Core\ArticleMeta;
+use CPA\Core\Settings;
 
 class PasteAdminPage extends AdminPage
 {
@@ -18,7 +18,7 @@ class PasteAdminPage extends AdminPage
         'posts_per_page' => 500,
         'meta_query' => [
             [
-                'key' => ArticleMeta::CPA_PASTED_HTML,
+                'key' => Settings::CPA_PASTED_HTML,
                 'value' => '1',
             ],
         ],

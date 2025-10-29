@@ -2,14 +2,14 @@
 
 namespace CPA\Admin;
 
-use CPA\Core\ArticleMeta;
+use CPA\Core\Settings;
 
 /**
  * Špecifická stránka: posledných 30 dní
  */
 class SuspectAdminPage extends AdminPage
 {
-    public string $menu_title = 'Nutná kontrola článkov';
+    public string $menu_title = 'Kontrola vloženého HTML obsahu';
 
     public string $page_title = 'Všetky články, ktoré majú nesprávny HTML content';
 
@@ -23,7 +23,7 @@ class SuspectAdminPage extends AdminPage
                 'after' => '30 days ago',
             ],
             [
-                'key' => ArticleMeta::CPA_DIRTY_HTML,
+                'key' => Settings::CPA_DIRTY_HTML,
                 'value' => '1',
             ],
         ],

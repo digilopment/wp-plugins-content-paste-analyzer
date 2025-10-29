@@ -2,11 +2,10 @@
 
 namespace CPA\Admin;
 
-use CPA\Core\ArticleMeta;
+use CPA\Core\Settings;
 use WP_Query;
 use function add_action;
 use function add_submenu_page;
-use function current_user_can;
 use function get_edit_post_link;
 use function get_permalink;
 use function get_post_field;
@@ -55,7 +54,9 @@ class AdminPage
 
     public function tools_page_render(): void
     {
-        if (!current_user_can('edit_others_posts')) {
+        $user = wp_get_current_user();
+
+        if (!array_intersect(Settings::ARTICLE_TOOLS_VISIBLE_FOR_ROLES, $user->roles)) {
             wp_die('Unauthorized');
         }
 
@@ -64,7 +65,7 @@ class AdminPage
             'posts_per_page' => 200,
             'meta_query' => [
                 [
-                    'key' => ArticleMeta::CPA_DIRTY_HTML,
+                    'key' => Settings::CPA_DIRTY_HTML,
                     'value' => '1',
                 ],
             ],

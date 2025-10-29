@@ -2,7 +2,7 @@
 
 namespace CPA\Admin;
 
-use CPA\Core\ArticleMeta;
+use CPA\Core\Settings;
 use function add_action;
 use function admin_url;
 use function check_ajax_referer;
@@ -55,7 +55,7 @@ class PasteDetector
             wp_send_json_error('Invalid post ID');
         }
 
-        update_post_meta($post_id, ArticleMeta::CPA_PASTED_HTML, 1);
+        update_post_meta($post_id, Settings::CPA_PASTED_HTML, 1);
         wp_send_json_success('Marked as dirty');
     }
 }

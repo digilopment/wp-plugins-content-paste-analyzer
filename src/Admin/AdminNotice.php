@@ -2,7 +2,7 @@
 
 namespace CPA\Admin;
 
-use CPA\Core\ArticleMeta;
+use CPA\Core\Settings;
 use function add_action;
 use function current_user_can;
 use function get_post;
@@ -55,7 +55,7 @@ class AdminNotice
 
     private function render_notice(int $post_id, bool $frontend = false): void
     {
-        $dirty = get_post_meta($post_id, ArticleMeta::CPA_DIRTY_HTML, true);
+        $dirty = get_post_meta($post_id, Settings::CPA_DIRTY_HTML, true);
 
         if (!$dirty) {
             return;
