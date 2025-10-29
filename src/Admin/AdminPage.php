@@ -15,6 +15,7 @@ use function get_the_date;
 use function get_the_ID;
 use function get_the_title;
 use function wp_die;
+use function wp_get_current_user;
 use function wp_reset_postdata;
 
 class AdminPage
@@ -62,7 +63,7 @@ class AdminPage
 
         $args = array_merge([
             'post_type' => 'post',
-            'posts_per_page' => 200,
+            'posts_per_page' => Settings::POSTS_PER_PAGE,
             'meta_query' => [
                 [
                     'key' => Settings::CPA_DIRTY_HTML,

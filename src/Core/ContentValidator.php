@@ -4,8 +4,6 @@ namespace CPA\Core;
 
 class ContentValidator
 {
-    private const IGNORED_TAGS = ['blockquote', 'figure', 'pre', 'p'];
-
     private string $content;
 
     public function __construct(string $content)
@@ -27,7 +25,7 @@ class ContentValidator
         if (preg_match($pattern, $trimmed_content, $matches)) {
             $opening_tag = strtolower($matches[1]);
 
-            if (in_array($opening_tag, self::IGNORED_TAGS, true)) {
+            if (in_array($opening_tag, Settings::IGNORED_TAGS, true)) {
                 return false;
             }
 

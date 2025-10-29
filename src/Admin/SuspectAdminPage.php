@@ -20,7 +20,7 @@ class SuspectAdminPage extends AdminPage
     protected array $query_args = [
         'date_query' => [
             [
-                'after' => '30 days ago',
+                'after' => Settings::ARTICLE_DAYS_LIMIT . ' days ago',
             ],
             [
                 'key' => Settings::CPA_DIRTY_HTML,

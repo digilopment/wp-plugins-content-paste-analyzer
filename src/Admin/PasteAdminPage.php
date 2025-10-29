@@ -15,7 +15,7 @@ class PasteAdminPage extends AdminPage
     public string $description = 'Zoznam článkov, pri ktorých bolo zaznamenané že pri vytváraní, alebo editovaní bol kopírovaný obsah. Skontrolujte a v prípade potreby upravte obsah článku.';
 
     protected array $query_args = [
-        'posts_per_page' => 500,
+        'posts_per_page' => Settings::POSTS_PER_PAGE,
         'meta_query' => [
             [
                 'key' => Settings::CPA_PASTED_HTML,
