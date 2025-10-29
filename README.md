@@ -14,10 +14,11 @@ Plugin ignoruje legitímne embedy ako `<iframe>`, `<script>` alebo `<blockquote>
 ## Funkcie
 
 - Detekuje, či je celý obsah článku obalený root elementom.  
-- Označí články s problematickým HTML cez post meta `_cpa_dirty_html`.  
+- Označí články s problematickým HTML cez post meta `_cpa_dirty_html`.
+- Označí články do kotrých bol pastnutý HTML content cez post meta `_cpa_pasted_html`.  
 - Zobrazuje admin notifikácie pri uložení problematického obsahu.  
 - Integruje sa s WordPress Classic Editorom (vyžaduje jeho aktiváciu).  
-- Poskytuje administračný náhľad na problematické články cez vlastnú admin stránku.  
+- Poskytuje administračný náhľad na problematické články cez vlastnú admin stránku pre `_cpa_dirty_html` aj `_cpa_pasted_html` 
 
 ---
 
@@ -33,8 +34,8 @@ Plugin ignoruje legitímne embedy ako `<iframe>`, `<script>` alebo `<blockquote>
 
 - Plugin automaticky kontroluje obsah pri ukladaní postov typu `post`.  
 - Problematic posts sú označené meta key `_cpa_dirty_html = 1`.  
+- Pasted posts sú označené meta key `_cpa_pasted_html = 1`.  
 - AdminNotices zobrazí upozornenie pre editora.  
-- AdminPage umožňuje filtrovať a prezerať všetky problematické články.  
 
 ---
 
@@ -51,7 +52,7 @@ Plugin ignoruje legitímne embedy ako `<iframe>`, `<script>` alebo `<blockquote>
 - Unit testy sa nachádzajú v `tests/` a používajú PHPUnit 12.  
 - Testujú hlavne `ContentValidator::isValidArticle()` na príkladoch HTML súborov z `tests/articles/` (prefixy `ok-` a `bad-`).  
 
-Spustenie testov:
+Spustenie testov a statickej analýzy:
 
 ```bash
 vendor/bin/phpunit
