@@ -11,7 +11,7 @@ class SuspectAdminPage extends AdminPage
 {
     public string $menu_title = 'Kontrola vloženého HTML obsahu';
 
-    public string $page_title = 'Všetky články, ktoré majú nesprávny HTML content';
+    public string $page_title = 'Všetky články, ktoré majú v obsahu nesprávne použité HTML';
 
     public string $menu_slug = 'cpa-html-check';
 
