@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit5797a33a8e494115cf0ea42d15f1e76b
+class ComposerStaticInit7a4747f520f216b2b8bced19a2305018
 {
     public static $files = array (
         '9b38cf48e83f5d8f60375221cd213eee' => __DIR__ . '/..' . '/phpstan/phpstan/bootstrap.php',
@@ -16,11 +16,14 @@ class ComposerStaticInit5797a33a8e494115cf0ea42d15f1e76b
         'S' => 
         array (
             'SzepeViktor\\PHPStan\\WordPress\\' => 30,
+            'SlevomatCodingStandard\\' => 23,
         ),
         'P' => 
         array (
             'PhpParser\\' => 10,
+            'PHPStan\\PhpDocParser\\' => 21,
             'PHPStan\\' => 8,
+            'PHPCSStandards\\Composer\\Plugin\\Installers\\PHPCodeSniffer\\' => 57,
         ),
         'D' => 
         array (
@@ -35,13 +38,25 @@ class ComposerStaticInit5797a33a8e494115cf0ea42d15f1e76b
         array (
             0 => __DIR__ . '/..' . '/szepeviktor/phpstan-wordpress/src',
         ),
+        'SlevomatCodingStandard\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/slevomat/coding-standard/SlevomatCodingStandard',
+        ),
         'PhpParser\\' => 
         array (
             0 => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser',
         ),
+        'PHPStan\\PhpDocParser\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/phpstan/phpdoc-parser/src',
+        ),
         'PHPStan\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpstan/phpstan-phpunit/src',
+        ),
+        'PHPCSStandards\\Composer\\Plugin\\Installers\\PHPCodeSniffer\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/dealerdirect/phpcodesniffer-composer-installer/src',
         ),
         'Digilopment\\Cpa\\Tests\\' => 
         array (
@@ -1354,9 +1369,9 @@ class ComposerStaticInit5797a33a8e494115cf0ea42d15f1e76b
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit5797a33a8e494115cf0ea42d15f1e76b::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit5797a33a8e494115cf0ea42d15f1e76b::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit5797a33a8e494115cf0ea42d15f1e76b::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit7a4747f520f216b2b8bced19a2305018::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit7a4747f520f216b2b8bced19a2305018::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit7a4747f520f216b2b8bced19a2305018::$classMap;
 
         }, null, ClassLoader::class);
     }

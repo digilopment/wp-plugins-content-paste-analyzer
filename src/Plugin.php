@@ -18,6 +18,6 @@ class Plugin
         (new PasteAdminPage())->register();
         (new SuspectAdminPage())->register();
         (new CheckDependency())->register();
-        (new SavePost())->register();
+         (new SavePost())->register();
     }
 }
