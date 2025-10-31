@@ -1,8 +1,23 @@
 <?xml version="1.0"?>
-<ruleset name="digilopment" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<ruleset name="digilopment" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="./vendor/squizlabs/php_codesniffer/phpcs.xsd">
+
     <description>Digilopment ruleset override.</description>
+
     <rule ref="./vendor/efabrica/coding-standard/eFabrica/ruleset.xml"/>
+
+    <!-- Vypnúť warnings pre dĺžku riadku -->
     <rule ref="Generic.Files.LineLength">
         <severity>0</severity>
     </rule>
+
+    <!-- Definovať, kde má PHPCS hľadať -->
+    <file>src</file>
+    <file>tests</file>
+
+    <!-- Ignorovať všetko ostatné -->
+    <exclude-pattern>vendor/*</exclude-pattern>
+    <exclude-pattern>node_modules/*</exclude-pattern>
+    <exclude-pattern>build/*</exclude-pattern>
+    <exclude-pattern>dist/*</exclude-pattern>
 </ruleset>

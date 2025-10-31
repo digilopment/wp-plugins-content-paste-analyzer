@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="/var/lib/www/remp-cloud/Web/www/plugins/content-paste-analyzer/phpunit.xml" tests="6" assertions="10" errors="0" failures="0" skipped="0" time="0.483251">
+    <testsuite name="Application Test Suite" tests="6" assertions="10" errors="0" failures="0" skipped="0" time="0.483251">
+      <testsuite name="Digilopment\Cpa\Tests\ContentValidatorTest" file="/var/lib/www/remp-cloud/Web/www/plugins/content-paste-analyzer/tests/ContentValidatorTest.php" tests="1" assertions="5" errors="0" failures="0" skipped="0" time="0.000555">
+        <testcase name="testAllHtmlFiles" file="/var/lib/www/remp-cloud/Web/www/plugins/content-paste-analyzer/tests/ContentValidatorTest.php" line="13" class="Digilopment\Cpa\Tests\ContentValidatorTest" classname="Digilopment.Cpa.Tests.ContentValidatorTest" assertions="5" time="0.000555"/>
+      </testsuite>
+      <testsuite name="Digilopment\Cpa\Tests\PhpCompatibilityTest" file="/var/lib/www/remp-cloud/Web/www/plugins/content-paste-analyzer/tests/PhpCompatibilityTest.php" tests="5" assertions="5" errors="0" failures="0" skipped="0" time="0.482696">
+        <testcase name="testPhpCompatibility80" file="/var/lib/www/remp-cloud/Web/www/plugins/content-paste-analyzer/tests/PhpCompatibilityTest.php" line="21" class="Digilopment\Cpa\Tests\PhpCompatibilityTest" classname="Digilopment.Cpa.Tests.PhpCompatibilityTest" assertions="1" time="0.096635"/>
+        <testcase name="testPhpCompatibility81" file="/var/lib/www/remp-cloud/Web/www/plugins/content-paste-analyzer/tests/PhpCompatibilityTest.php" line="27" class="Digilopment\Cpa\Tests\PhpCompatibilityTest" classname="Digilopment.Cpa.Tests.PhpCompatibilityTest" assertions="1" time="0.097289"/>
+        <testcase name="testPhpCompatibility82" file="/var/lib/www/remp-cloud/Web/www/plugins/content-paste-analyzer/tests/PhpCompatibilityTest.php" line="33" class="Digilopment\Cpa\Tests\PhpCompatibilityTest" classname="Digilopment.Cpa.Tests.PhpCompatibilityTest" assertions="1" time="0.097636"/>
+        <testcase name="testPhpCompatibility83" file="/var/lib/www/remp-cloud/Web/www/plugins/content-paste-analyzer/tests/PhpCompatibilityTest.php" line="39" class="Digilopment\Cpa\Tests\PhpCompatibilityTest" classname="Digilopment.Cpa.Tests.PhpCompatibilityTest" assertions="1" time="0.096074"/>
+        <testcase name="testPhpCompatibility84" file="/var/lib/www/remp-cloud/Web/www/plugins/content-paste-analyzer/tests/PhpCompatibilityTest.php" line="45" class="Digilopment\Cpa\Tests\PhpCompatibilityTest" classname="Digilopment.Cpa.Tests.PhpCompatibilityTest" assertions="1" time="0.095063"/>
+      </testsuite>
+    </testsuite>
+  </testsuite>
+</testsuites>
