@@ -1,6 +1,6 @@
 <?php
 
-namespace CPA\Core;
+namespace Digilopment\Cpa\Core;
 
 class ContentValidator
 {
@@ -13,8 +13,8 @@ class ContentValidator
 
     public function isValidArticle(): bool
     {
-        $trimmed_content = trim($this->content);
-        if (empty($trimmed_content)) {
+        $trimmedContent = trim($this->content);
+        if (empty($trimmedContent)) {
             return false;
         }
 
@@ -22,10 +22,10 @@ class ContentValidator
         // na konci obsahu, ktorý neobsahuje žiadne iné textové uzávery.
         // Používame modifikátor 's' (DOTALL), aby bodka (.) zahrnula aj nové riadky.
         $pattern = '/^\s*<([a-z][a-z0-9]*)\b[^>]*>(.+?)<\/\1>\s*$/is';
-        if (preg_match($pattern, $trimmed_content, $matches)) {
-            $opening_tag = strtolower($matches[1]);
+        if (preg_match($pattern, $trimmedContent, $matches)) {
+            $openingTag = strtolower($matches[1]);
 
-            if (in_array($opening_tag, Settings::IGNORED_TAGS, true)) {
+            if (in_array($openingTag, Settings::IGNORED_TAGS, true)) {
                 return false;
             }
 

@@ -1,8 +1,8 @@
 <?php
 
-namespace CPA\Admin;
+namespace Digilopment\Cpa\Admin;
 
-use CPA\Core\Settings;
+use Digilopment\Cpa\Core\Settings;
 use WP_Query;
 use function add_action;
 use function add_submenu_page;
@@ -20,16 +20,16 @@ use function wp_reset_postdata;
 
 class AdminPage
 {
-    public string $menu_title = '';
+    public string $menuTitle = '';
 
-    public string $page_title = '';
+    public string $pageTitle = '';
 
-    public string $menu_slug = '';
+    public string $menuSlug = '';
 
     public string $description = '';
 
     /** @var array<string, mixed> */
-    protected array $query_args = [];
+    protected array $queryArgs = [];
 
     public function __construct()
     {
@@ -38,22 +38,22 @@ class AdminPage
 
     public function register(): void
     {
-        add_action('admin_menu', [$this, 'register_page']);
+        add_action('admin_menu', [$this, 'registerPage']);
     }
 
-    public function register_page(): void
+    public function registerPage(): void
     {
         add_submenu_page(
             'tools.php',
-            $this->page_title,
-            $this->menu_title,
+            $this->pageTitle,
+            $this->menuTitle,
             'edit_others_posts',
-            $this->menu_slug,
-            [$this, 'tools_page_render']
+            $this->menuSlug,
+            [$this, 'toolsPageRender']
         );
     }
 
-    public function tools_page_render(): void
+    public function toolsPageRender(): void
     {
         $user = wp_get_current_user();
 
@@ -72,28 +72,28 @@ class AdminPage
             ],
             'orderby' => 'date',
             'order' => 'DESC',
-            ], $this->query_args);
+        ], $this->queryArgs);
 
         $query = new WP_Query($args);
 
-        $posts_data = [];
+        $postsData = [];
         while ($query->have_posts()) {
             $query->the_post();
-            $pid = (int) get_the_ID();
-            $posts_data[] = [
-                'title' => get_the_title($pid),
-                'author' => get_the_author_meta('display_name', (int) get_post_field('post_author', $pid)),
-                'date' => get_the_date('', $pid),
-                'status' => get_post_status($pid),
-                'edit_link' => get_edit_post_link($pid),
-                'view_link' => get_permalink($pid),
+            $postId = (int) get_the_ID();
+            $postsData[] = [
+                'title' => get_the_title($postId),
+                'author' => get_the_author_meta('display_name', (int) get_post_field('post_author', $postId)),
+                'date' => get_the_date('', $postId),
+                'status' => get_post_status($postId),
+                'editLink' => get_edit_post_link($postId),
+                'viewLink' => get_permalink($postId),
             ];
         }
         wp_reset_postdata();
 
-        $template_path = __DIR__ . '/templates/admin-page.php';
-        if (file_exists($template_path)) {
-            include $template_path;
+        $templatePath = __DIR__ . '/templates/admin-page.php';
+        if (file_exists($templatePath)) {
+            include $templatePath;
         }
     }
 }

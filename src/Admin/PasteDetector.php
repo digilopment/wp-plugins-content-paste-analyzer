@@ -1,11 +1,12 @@
 <?php
 
-namespace CPA\Admin;
+namespace Digilopment\Cpa\Admin;
 
-use CPA\Core\Settings;
+use Digilopment\Cpa\Core\Settings;
 use function add_action;
 use function admin_url;
 use function check_ajax_referer;
+use function current_user_can;
 use function get_the_ID;
 use function plugin_dir_url;
 use function update_post_meta;
@@ -19,11 +20,11 @@ class PasteDetector
 {
     public function register(): void
     {
-        add_action('admin_enqueue_scripts', [$this, 'enqueue_script']);
-        add_action('wp_ajax_cpa_mark_paste', [$this, 'mark_post_dirty']);
+        add_action('admin_enqueue_scripts', [$this, 'enqueueScript']);
+        add_action('wp_ajax_cpa_mark_paste', [$this, 'markPostDirty']);
     }
 
-    public function enqueue_script(string $hook): void
+    public function enqueueScript(string $hook): void
     {
         if (!in_array($hook, ['post.php', 'post-new.php'], true)) {
             return;
@@ -37,25 +38,29 @@ class PasteDetector
             true
         );
 
-        $post_id = get_the_ID() ?: ($_GET['post'] ?? 0);
+        $postId = get_the_ID() ?: ($_GET['post'] ?? 0);
 
         wp_localize_script('cpa-paste-detector', 'cpaAjax', [
             'ajaxUrl' => admin_url('admin-ajax.php'),
             'nonce' => wp_create_nonce('cpa_paste_detected'),
-            'postId' => (int) $post_id,
+            'postId' => (int) $postId,
         ]);
     }
 
-    public function mark_post_dirty(): void
+    public function markPostDirty(): void
     {
         check_ajax_referer('cpa_paste_detected', 'security');
 
-        $post_id = intval($_POST['post_id'] ?? 0);
-        if (!$post_id) {
+        $postId = isset($_POST['post_id']) ? absint(wp_unslash($_POST['post_id'])) : false;
+        if (!$postId) {
             wp_send_json_error('Invalid post ID');
         }
 
-        update_post_meta($post_id, Settings::CPA_PASTED_HTML, 1);
+        if (!current_user_can('edit_post', $postId)) {
+            wp_send_json_error('Insufficient permissions');
+        }
+
+        update_post_meta($postId, Settings::CPA_PASTED_HTML, 1);
         wp_send_json_success('Marked as dirty');
     }
 }

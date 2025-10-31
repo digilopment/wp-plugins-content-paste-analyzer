@@ -1,8 +1,8 @@
 <?php
 
-namespace CPA\Admin;
+namespace Digilopment\Cpa\Admin;
 
-use CPA\Core\Settings;
+use Digilopment\Cpa\Core\Settings;
 use function add_action;
 use function current_user_can;
 use function get_post;
@@ -13,14 +13,11 @@ class AdminNotice
 {
     public function register(): void
     {
-        // Admin notifikácie
-        add_action('admin_notices', [$this, 'show_admin_notice']);
-
-        // Frontend notifikácie
-        add_action('wp_body_open', [$this, 'show_frontend_notice']); // zobrazí sa hneď po <body>
+        add_action('admin_notices', [$this, 'showAdminNotice']);
+        add_action('wp_body_open', [$this, 'showFrontendNotice']);
     }
 
-    public function show_admin_notice(): void
+    public function showAdminNotice(): void
     {
         $screen = get_current_screen();
         if (!$screen || $screen->base !== 'post' || $screen->post_type !== 'post') {
@@ -32,10 +29,10 @@ class AdminNotice
             return;
         }
 
-        $this->render_notice($post->ID, false);
+        $this->renderNotice($post->ID, false);
     }
 
-    public function show_frontend_notice(): void
+    public function showFrontendNotice(): void
     {
         if (!is_user_logged_in() || !current_user_can('edit_posts')) {
             return;
@@ -50,25 +47,23 @@ class AdminNotice
             return;
         }
 
-        $this->render_notice($post->ID, true);
+        $this->renderNotice($post->ID, true);
     }
 
-    private function render_notice(int $post_id, bool $frontend = false): void
+    private function renderNotice(int $postId, bool $frontend = false): void
     {
-        $dirty = get_post_meta($post_id, Settings::CPA_DIRTY_HTML, true);
+        $isDirty = get_post_meta($postId, Settings::CPA_DIRTY_HTML, true);
 
-        if (!$dirty) {
+        if (!$isDirty) {
             return;
         }
 
-        if ($frontend) {
-            $template_path = __DIR__ . '/templates/admin-notice-frontend.php';
-        } else {
-            $template_path = __DIR__ . '/templates/admin-notice.php';
-        }
+        $templatePath = $frontend
+            ? __DIR__ . '/templates/admin-notice-frontend.php'
+            : __DIR__ . '/templates/admin-notice.php';
 
-        if (file_exists($template_path)) {
-            include $template_path;
+        if (file_exists($templatePath)) {
+            include $templatePath;
         }
     }
 }

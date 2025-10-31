@@ -1,11 +1,11 @@
 <?php
 
-use CPA\Admin\AdminPage;
+use Digilopment\Cpa\Admin\AdminPage;
 
 /** @var AdminPage $this */
 ?>
 <div class="wrap">
-    <h1 class="wp-heading-inline"><?php echo esc_html($this->page_title); ?></h1>
+    <h1 class="wp-heading-inline"><?php echo esc_html($this->pageTitle); ?></h1>
     <p class="description"><?php echo esc_html($this->description); ?></p>
 
     <?php if (empty($posts_data)) : ?>

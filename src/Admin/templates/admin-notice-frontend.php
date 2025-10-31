@@ -1,5 +1,4 @@
 <?php
-// templates/frontend-notice.php
 
 if (!isset($post_id)) {
     return;
@@ -18,7 +17,7 @@ if (!isset($post_id)) {
 }
 .cpa-frontend-notice.fixed {
     position: fixed;
-    top: 32px; /* pod WP admin bar */
+    top: 32px;
     left: 0;
     z-index: 9999;
 }

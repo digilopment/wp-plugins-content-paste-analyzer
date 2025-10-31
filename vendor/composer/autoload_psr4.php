@@ -8,7 +8,8 @@ $baseDir = dirname($vendorDir);
 return array(
     'SzepeViktor\\PHPStan\\WordPress\\' => array($vendorDir . '/szepeviktor/phpstan-wordpress/src'),
     'PhpParser\\' => array($vendorDir . '/nikic/php-parser/lib/PhpParser'),
+    'PHPStan\\' => array($vendorDir . '/phpstan/phpstan-phpunit/src'),
+    'Digilopment\\Cpa\\Tests\\' => array($baseDir . '/tests'),
+    'Digilopment\\Cpa\\' => array($baseDir . '/src'),
     'DeepCopy\\' => array($vendorDir . '/myclabs/deep-copy/src/DeepCopy'),
-    'CPA\\Tests\\' => array($baseDir . '/tests'),
-    'CPA\\' => array($baseDir . '/src'),
 );

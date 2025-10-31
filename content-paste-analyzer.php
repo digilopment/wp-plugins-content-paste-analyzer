@@ -1,19 +1,22 @@
 <?php
+
 /**
  * Plugin Name: Content Paste Analyzer
  * Description: Detects and flags problematic HTML pasted into WordPress posts.
  * Version: 1.0.0
  * Author: Tomas Doubek
  */
-
-if (!defined('ABSPATH')) {
-    exit;
-}
+use Digilopment\Cpa\Plugin;
 
 require_once __DIR__ . '/vendor/autoload.php';
 
-use CPA\Plugin;
+(new class {
 
-add_action('plugins_loaded', function () {
-    (new Plugin())->init();
-});
+        public function __construct()
+        {
+            add_action('plugins_loaded', function () {
+                (new Plugin())->init();
+            });
+        }
+
+    });

@@ -1,13 +1,13 @@
 <?php
 
-namespace CPA;
+namespace Digilopment\Cpa;
 
-use CPA\Admin\AdminNotice;
-use CPA\Admin\PasteAdminPage;
-use CPA\Admin\PasteDetector;
-use CPA\Admin\SuspectAdminPage;
-use CPA\Core\CheckDependency;
-use CPA\Core\SavePost;
+use Digilopment\Cpa\Admin\AdminNotice;
+use Digilopment\Cpa\Admin\PasteAdminPage;
+use Digilopment\Cpa\Admin\PasteDetector;
+use Digilopment\Cpa\Admin\SuspectAdminPage;
+use Digilopment\Cpa\Core\CheckDependency;
+use Digilopment\Cpa\Core\SavePost;
 
 class Plugin
 {

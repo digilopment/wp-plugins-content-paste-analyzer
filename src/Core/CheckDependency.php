@@ -1,15 +1,15 @@
 <?php
 
-namespace CPA\Core;
+namespace Digilopment\Cpa\Core;
 
 class CheckDependency
 {
     public function register(): void
     {
-        add_action('admin_init', [$this, 'check_dependencies']);
+        add_action('admin_init', [$this, 'checkDependencies']);
     }
 
-    public function check_dependencies(): void
+    public function checkDependencies(): void
     {
         if (!is_plugin_active('classic-editor/classic-editor.php')) {
             add_action('admin_notices', function () {

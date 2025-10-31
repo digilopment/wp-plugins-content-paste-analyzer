@@ -4,11 +4,11 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit4e49dcade64ca47f916361b78f7beab1
+class ComposerStaticInit5797a33a8e494115cf0ea42d15f1e76b
 {
     public static $files = array (
-        '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
         '9b38cf48e83f5d8f60375221cd213eee' => __DIR__ . '/..' . '/phpstan/phpstan/bootstrap.php',
+        '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
         'ec07570ca5a812141189b1fa81503674' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Assert/Functions.php',
     );
 
@@ -20,15 +20,13 @@ class ComposerStaticInit4e49dcade64ca47f916361b78f7beab1
         'P' => 
         array (
             'PhpParser\\' => 10,
+            'PHPStan\\' => 8,
         ),
         'D' => 
         array (
+            'Digilopment\\Cpa\\Tests\\' => 22,
+            'Digilopment\\Cpa\\' => 16,
             'DeepCopy\\' => 9,
-        ),
-        'C' => 
-        array (
-            'CPA\\Tests\\' => 10,
-            'CPA\\' => 4,
         ),
     );
 
@@ -41,17 +39,21 @@ class ComposerStaticInit4e49dcade64ca47f916361b78f7beab1
         array (
             0 => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser',
         ),
-        'DeepCopy\\' => 
+        'PHPStan\\' => 
         array (
-            0 => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy',
+            0 => __DIR__ . '/..' . '/phpstan/phpstan-phpunit/src',
         ),
-        'CPA\\Tests\\' => 
+        'Digilopment\\Cpa\\Tests\\' => 
         array (
             0 => __DIR__ . '/../..' . '/tests',
         ),
-        'CPA\\' => 
+        'Digilopment\\Cpa\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src',
+        ),
+        'DeepCopy\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy',
         ),
     );
 
@@ -1352,9 +1354,9 @@ class ComposerStaticInit4e49dcade64ca47f916361b78f7beab1
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit4e49dcade64ca47f916361b78f7beab1::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit4e49dcade64ca47f916361b78f7beab1::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit4e49dcade64ca47f916361b78f7beab1::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit5797a33a8e494115cf0ea42d15f1e76b::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit5797a33a8e494115cf0ea42d15f1e76b::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit5797a33a8e494115cf0ea42d15f1e76b::$classMap;
 
         }, null, ClassLoader::class);
     }
