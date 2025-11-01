@@ -81,7 +81,6 @@ class AdminPage
         ], $this->queryArgs);
 
         $this->query = new WP_Query($args);
-
         $postsData = [];
         while ($this->query->have_posts()) {
             $this->query->the_post();

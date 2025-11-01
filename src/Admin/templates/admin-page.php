@@ -8,7 +8,7 @@ use Digilopment\Cpa\Admin\AdminPage;
     <h1 class="wp-heading-inline"><?php echo esc_html($this->pageTitle); ?></h1>
     <p class="description"><?php echo esc_html($this->description); ?></p>
 
-    <?php if (empty($posts_data)) : ?>
+    <?php if (empty($postsData)) : ?>
         <div class="notice notice-success inline">
             <p>Žiadne podozrivé príspevky za posledných 30 dní.</p>
         </div>
@@ -25,17 +25,17 @@ use Digilopment\Cpa\Admin\AdminPage;
                 </tr>
             </thead>
             <tbody id="the-list">
-                <?php foreach ($posts_data as $post) : ?>
+                <?php foreach ($postsData as $post) : ?>
                     <tr>
                         <td><?php echo esc_html($post['title']); ?></td>
                         <td><?php echo esc_html($post['author']); ?></td>
                         <td><?php echo esc_html($post['date']); ?></td>
                         <td><?php echo esc_html($post['status']); ?></td>
                         <td>
-                            <a href="<?php echo esc_url($post['edit_link']); ?>" class="button button-primary button-small">Upraviť</a>
+                            <a href="<?php echo esc_url($post['editLink']); ?>" class="button button-primary button-small">Upraviť</a>
                         </td>
                         <td>
-                            <a href="<?php echo esc_url($post['view_link']); ?>" target="_blank" class="button button-secondary button-small">Zobraziť</a>
+                            <a href="<?php echo esc_url($post['viewLink']); ?>" target="_blank" class="button button-secondary button-small">Zobraziť</a>
                         </td>
                     </tr>
                 <?php endforeach; ?>

@@ -1,10 +1,3 @@
-<?php
-
-if (!isset($post_id)) {
-    return;
-}
-?>
-
 <style>
 .cpa-frontend-notice {
     width: 100%;
@@ -34,7 +27,6 @@ document.addEventListener('scroll', () => {
     }
 });
 </script>
-
 <div id="cpa-frontend-notice" class="cpa-frontend-notice">
     <?php require_once __DIR__ . '/notice.php'; ?>
 </div>

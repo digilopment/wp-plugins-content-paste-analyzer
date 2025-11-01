@@ -9,7 +9,6 @@ use function wp_is_post_revision;
 
 class SavePost
 {
-
     private Settings $settings;
 
     public function __construct()
@@ -37,5 +36,4 @@ class SavePost
             update_post_meta($postId, $this->settings::CPA_DIRTY_HTML, 0);
         }
     }
-
 }

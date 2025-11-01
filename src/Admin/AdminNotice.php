@@ -43,6 +43,7 @@ class AdminNotice
 
     public function showFrontendNotice(): void
     {
+
         if (!is_user_logged_in() || !current_user_can('edit_posts')) {
             return;
         }
@@ -62,14 +63,10 @@ class AdminNotice
     private function renderNotice(int $postId, bool $frontend = false): void
     {
         $isDirty = get_post_meta($postId, $this->settings::CPA_DIRTY_HTML, true);
-
         if (!$isDirty) {
             return;
         }
-
-        $templatePath = $frontend
-            ? __DIR__ . '/templates/admin-notice-frontend.php'
-            : __DIR__ . '/templates/admin-notice.php';
+        $templatePath = $frontend ? __DIR__ . '/templates/admin-notice-frontend.php' : __DIR__ . '/templates/admin-notice.php';
 
         if (file_exists($templatePath)) {
             include $templatePath;
