@@ -31,8 +31,14 @@ class AdminPage
     /** @var array<string, mixed> */
     protected array $queryArgs = [];
 
+    private Settings $settings;
+
+    private WP_Query $query;
+
     public function __construct()
     {
+        $this->settings = new Settings();
+        $this->query = new WP_Query();
         $this->register();
     }
 
@@ -57,16 +63,16 @@ class AdminPage
     {
         $user = wp_get_current_user();
 
-        if (!array_intersect(Settings::ARTICLE_TOOLS_VISIBLE_FOR_ROLES, $user->roles)) {
+        if (!array_intersect($this->settings::ARTICLE_TOOLS_VISIBLE_FOR_ROLES, $user->roles)) {
             wp_die('Unauthorized');
         }
 
         $args = array_merge([
             'post_type' => 'post',
-            'posts_per_page' => Settings::POSTS_PER_PAGE,
+            'posts_per_page' => $this->settings::POSTS_PER_PAGE,
             'meta_query' => [
                 [
-                    'key' => Settings::CPA_DIRTY_HTML,
+                    'key' => $this->settings::CPA_DIRTY_HTML,
                     'value' => '1',
                 ],
             ],
@@ -74,11 +80,11 @@ class AdminPage
             'order' => 'DESC',
         ], $this->queryArgs);
 
-        $query = new WP_Query($args);
+        $this->query = new WP_Query($args);
 
         $postsData = [];
-        while ($query->have_posts()) {
-            $query->the_post();
+        while ($this->query->have_posts()) {
+            $this->query->the_post();
             $postId = (int) get_the_ID();
             $postsData[] = [
                 'title' => get_the_title($postId),
@@ -89,6 +95,7 @@ class AdminPage
                 'viewLink' => get_permalink($postId),
             ];
         }
+
         wp_reset_postdata();
 
         $templatePath = __DIR__ . '/templates/admin-page.php';

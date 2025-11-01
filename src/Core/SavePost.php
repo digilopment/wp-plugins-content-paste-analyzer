@@ -9,6 +9,14 @@ use function wp_is_post_revision;
 
 class SavePost
 {
+
+    private Settings $settings;
+
+    public function __construct()
+    {
+        $this->settings = new Settings();
+    }
+
     public function register(): void
     {
         add_action('save_post', [$this, 'validateContent'], 10, 2);
@@ -24,9 +32,10 @@ class SavePost
         $hasIssue = $validator->isValidArticle();
 
         if ($hasIssue) {
-            update_post_meta($postId, Settings::CPA_DIRTY_HTML, 1);
+            update_post_meta($postId, $this->settings::CPA_DIRTY_HTML, 1);
         } else {
-            update_post_meta($postId, Settings::CPA_DIRTY_HTML, 0);
+            update_post_meta($postId, $this->settings::CPA_DIRTY_HTML, 0);
         }
     }
+
 }

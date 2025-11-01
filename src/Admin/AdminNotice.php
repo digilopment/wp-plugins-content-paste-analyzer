@@ -5,12 +5,21 @@ namespace Digilopment\Cpa\Admin;
 use Digilopment\Cpa\Core\Settings;
 use function add_action;
 use function current_user_can;
+use function get_current_screen;
 use function get_post;
 use function get_post_meta;
+use function is_singular;
 use function is_user_logged_in;
 
 class AdminNotice
 {
+    private Settings $settings;
+
+    public function __construct()
+    {
+        $this->settings = new Settings();
+    }
+
     public function register(): void
     {
         add_action('admin_notices', [$this, 'showAdminNotice']);
@@ -52,7 +61,7 @@ class AdminNotice
 
     private function renderNotice(int $postId, bool $frontend = false): void
     {
-        $isDirty = get_post_meta($postId, Settings::CPA_DIRTY_HTML, true);
+        $isDirty = get_post_meta($postId, $this->settings::CPA_DIRTY_HTML, true);
 
         if (!$isDirty) {
             return;

@@ -15,9 +15,17 @@ use function wp_enqueue_script;
 use function wp_localize_script;
 use function wp_send_json_error;
 use function wp_send_json_success;
+use function wp_unslash;
 
 class PasteDetector
 {
+    private Settings $settings;
+
+    public function __construct()
+    {
+        $this->settings = new Settings();
+    }
+
     public function register(): void
     {
         add_action('admin_enqueue_scripts', [$this, 'enqueueScript']);
@@ -38,7 +46,7 @@ class PasteDetector
             true
         );
 
-        $postId = get_the_ID() ?: ($_GET['post'] ?? 0);
+        $postId = get_the_ID() ?: (absint(wp_unslash($_GET['post'])) ?: 0);
 
         wp_localize_script('cpa-paste-detector', 'cpaAjax', [
             'ajaxUrl' => admin_url('admin-ajax.php'),
@@ -60,7 +68,7 @@ class PasteDetector
             wp_send_json_error('Insufficient permissions');
         }
 
-        update_post_meta($postId, Settings::CPA_PASTED_HTML, 1);
+        update_post_meta($postId, $this->settings::CPA_PASTED_HTML, 1);
         wp_send_json_success('Marked as dirty');
     }
 }
