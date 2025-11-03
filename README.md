@@ -49,7 +49,7 @@ Plugin ignoruje legitímne embedy ako `<iframe>`, `<script>` alebo `<blockquote>
 
 ## Testovanie
 
-- Unit testy sa nachádzajú v `tests/` a používajú PHPUnit 12.  
+- Unit testy sa nachádzajú v `tests/` a používajú PHPUnit 9.  
 - Testujú hlavne `ContentValidator::isValidArticle()` na príkladoch HTML súborov z `tests/articles/` (prefixy `ok-` a `bad-`).  
 
 Spustenie testov a statickej analýzy:
@@ -57,4 +57,6 @@ Spustenie testov a statickej analýzy:
 ```bash
 vendor/bin/phpunit
 vendor/bin/phpstan
+vendor/bin/phpcs
+vendor/bin/phpcbf
 ```
