@@ -17,8 +17,9 @@ class NoMissingSpaceInClassAnnotationRule implements Rule
 	/**
 	 * Covers helper.
 	 *
+	 * @var AnnotationHelper
 	 */
-	private AnnotationHelper $annotationHelper;
+	private $annotationHelper;
 
 	public function __construct(AnnotationHelper $annotationHelper)
 	{
@@ -33,7 +34,7 @@ class NoMissingSpaceInClassAnnotationRule implements Rule
 	public function processNode(Node $node, Scope $scope): array
 	{
 		$classReflection = $scope->getClassReflection();
-		if ($classReflection === null || $classReflection->is(TestCase::class) === false) {
+		if ($classReflection === null || $classReflection->isSubclassOf(TestCase::class) === false) {
 			return [];
 		}
 

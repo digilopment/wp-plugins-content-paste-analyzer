@@ -2,15 +2,12 @@
 
 namespace PHPStan\Rules\PHPUnit;
 
-use PhpParser\Modifiers;
 use PhpParser\Node\Attribute;
 use PhpParser\Node\Expr\ClassConstFetch;
 use PhpParser\Node\Name;
 use PhpParser\Node\Scalar\String_;
 use PhpParser\Node\Stmt\ClassMethod;
-use PhpParser\NodeFinder;
 use PHPStan\Analyser\Scope;
-use PHPStan\Parser\Parser;
 use PHPStan\PhpDoc\ResolvedPhpDocBlock;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode;
 use PHPStan\Reflection\ClassReflection;
@@ -31,29 +28,28 @@ class DataProviderHelper
 	/**
 	 * Reflection provider.
 	 *
+	 * @var ReflectionProvider
 	 */
-	private ReflectionProvider $reflectionProvider;
+	private $reflectionProvider;
 
 	/**
 	 * The file type mapper.
 	 *
+	 * @var FileTypeMapper
 	 */
-	private FileTypeMapper $fileTypeMapper;
+	private $fileTypeMapper;
 
-	private Parser $parser;
-
-	private bool $phpunit10OrNewer;
+	/** @var bool */
+	private $phpunit10OrNewer;
 
 	public function __construct(
 		ReflectionProvider $reflectionProvider,
 		FileTypeMapper $fileTypeMapper,
-		Parser $parser,
 		bool $phpunit10OrNewer
 	)
 	{
 		$this->reflectionProvider = $reflectionProvider;
 		$this->fileTypeMapper = $fileTypeMapper;
-		$this->parser = $parser;
 		$this->phpunit10OrNewer = $phpunit10OrNewer;
 	}
 
@@ -73,7 +69,7 @@ class DataProviderHelper
 				$classReflection->getName(),
 				$scope->isInTrait() ? $scope->getTraitReflection()->getName() : null,
 				$node->name->toString(),
-				$docComment->getText(),
+				$docComment->getText()
 			);
 			foreach ($this->getDataProviderAnnotations($methodPhpDoc) as $annotation) {
 				$dataProviderValue = $this->getDataProviderAnnotationValue($annotation);
@@ -83,7 +79,7 @@ class DataProviderHelper
 				}
 
 				$dataProviderMethod = $this->parseDataProviderAnnotationValue($scope, $dataProviderValue);
-				$dataProviderMethod[] = $node->getStartLine();
+				$dataProviderMethod[] = $node->getLine();
 
 				yield $dataProviderValue => $dataProviderMethod;
 			}
@@ -126,7 +122,7 @@ class DataProviderHelper
 		foreach ($phpDocNodes as $docNode) {
 			$annotations = array_merge(
 				$annotations,
-				$docNode->getTagsByName('@dataProvider'),
+				$docNode->getTagsByName('@dataProvider')
 			);
 		}
 
@@ -149,7 +145,7 @@ class DataProviderHelper
 			return [
 				RuleErrorBuilder::message(sprintf(
 					'@dataProvider %s related class not found.',
-					$dataProviderValue,
+					$dataProviderValue
 				))
 					->line($lineNumber)
 					->identifier('phpunit.dataProviderClass')
@@ -163,7 +159,7 @@ class DataProviderHelper
 			return [
 				RuleErrorBuilder::message(sprintf(
 					'@dataProvider %s related method not found.',
-					$dataProviderValue,
+					$dataProviderValue
 				))
 					->line($lineNumber)
 					->identifier('phpunit.dataProviderMethod')
@@ -177,7 +173,7 @@ class DataProviderHelper
 			$errors[] = RuleErrorBuilder::message(sprintf(
 				'@dataProvider %s related method is used with incorrect case: %s.',
 				$dataProviderValue,
-				$dataProviderMethodReflection->getName(),
+				$dataProviderMethodReflection->getName()
 			))
 				->line($lineNumber)
 				->identifier('method.nameCase')
@@ -187,7 +183,7 @@ class DataProviderHelper
 		if (!$dataProviderMethodReflection->isPublic()) {
 			$errors[] = RuleErrorBuilder::message(sprintf(
 				'@dataProvider %s related method must be public.',
-				$dataProviderValue,
+				$dataProviderValue
 			))
 				->line($lineNumber)
 				->identifier('phpunit.dataProviderPublic')
@@ -195,28 +191,13 @@ class DataProviderHelper
 		}
 
 		if ($deprecationRulesInstalled && $this->phpunit10OrNewer && !$dataProviderMethodReflection->isStatic()) {
-			$errorBuilder = RuleErrorBuilder::message(sprintf(
+			$errors[] = RuleErrorBuilder::message(sprintf(
 				'@dataProvider %s related method must be static in PHPUnit 10 and newer.',
-				$dataProviderValue,
+				$dataProviderValue
 			))
 				->line($lineNumber)
-				->identifier('phpunit.dataProviderStatic');
-
-			$dataProviderMethodReflectionDeclaringClass = $dataProviderMethodReflection->getDeclaringClass();
-			if ($dataProviderMethodReflectionDeclaringClass->getFileName() !== null) {
-				$stmts = $this->parser->parseFile($dataProviderMethodReflectionDeclaringClass->getFileName());
-				$nodeFinder = new NodeFinder();
-				/** @var ClassMethod|null $methodNode */
-				$methodNode = $nodeFinder->findFirst($stmts, static fn ($node) => $node instanceof ClassMethod && $node->name->toString() === $dataProviderMethodReflection->getName());
-				if ($methodNode !== null) {
-					$errorBuilder->fixNode($methodNode, static function (ClassMethod $methodNode) {
-						$methodNode->flags |= Modifiers::STATIC;
-
-						return $methodNode;
-					});
-				}
-			}
-			$errors[] = $errorBuilder->build();
+				->identifier('phpunit.dataProviderStatic')
+				->build();
 		}
 
 		return $errors;
@@ -279,7 +260,7 @@ class DataProviderHelper
 			sprintf('%s::%s', $className, $methodNameArg->value) => [
 				$dataProviderClassReflection,
 				$methodNameArg->value,
-				$attribute->getStartLine(),
+				$attribute->getLine(),
 			],
 		];
 	}
@@ -301,7 +282,7 @@ class DataProviderHelper
 			$methodNameArg->value => [
 				$classReflection,
 				$methodNameArg->value,
-				$attribute->getStartLine(),
+				$attribute->getLine(),
 			],
 		];
 	}

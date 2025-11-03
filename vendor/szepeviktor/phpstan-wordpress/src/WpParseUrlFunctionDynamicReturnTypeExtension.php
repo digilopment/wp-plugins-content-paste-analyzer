@@ -40,12 +40,13 @@ use const PHP_URL_USER;
 final class WpParseUrlFunctionDynamicReturnTypeExtension implements \PHPStan\Type\DynamicFunctionReturnTypeExtension
 {
     /** @var array<int, \PHPStan\Type\Type>|null */
-    private ?array $componentTypesPairedConstants = null;
+    private $componentTypesPairedConstants = null;
 
     /** @var array<string, \PHPStan\Type\Type>|null */
-    private ?array $componentTypesPairedStrings = null;
+    private $componentTypesPairedStrings = null;
 
-    private ?Type $allComponentsTogetherType = null;
+    /** @var \PHPStan\Type\Type|null */
+    private $allComponentsTogetherType = null;
 
     public function isFunctionSupported(FunctionReflection $functionReflection): bool
     {

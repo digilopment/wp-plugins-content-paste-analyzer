@@ -18,6 +18,7 @@ use PHPStan\PhpDoc\ResolvedPhpDocBlock;
 use PHPStan\PhpDoc\Tag\ParamTag;
 use PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\Rules\RuleLevelHelper;
+use PHPStan\Type\FileTypeMapper;
 use PHPStan\Type\VerbosityLevel;
 
 /**
@@ -30,22 +31,26 @@ class HookDocsRule implements \PHPStan\Rules\Rule
         'do_action',
     ];
 
-    protected HookDocBlock $hookDocBlock;
+    /** @var \SzepeViktor\PHPStan\WordPress\HookDocBlock */
+    protected $hookDocBlock;
 
-    protected RuleLevelHelper $ruleLevelHelper;
+    /** @var \PHPStan\Rules\RuleLevelHelper */
+    protected $ruleLevelHelper;
 
-    protected FuncCall $currentNode;
+    /** @var \PhpParser\Node\Expr\FuncCall */
+    protected $currentNode;
 
-    protected Scope $currentScope;
+    /** @var \PHPStan\Analyser\Scope */
+    protected $currentScope;
 
     /** @var list<\PHPStan\Rules\IdentifierRuleError> */
-    private array $errors;
+    private $errors;
 
     public function __construct(
-        HookDocBlock $hookDocBlock,
+        FileTypeMapper $fileTypeMapper,
         RuleLevelHelper $ruleLevelHelper
     ) {
-        $this->hookDocBlock = $hookDocBlock;
+        $this->hookDocBlock = new HookDocBlock($fileTypeMapper);
         $this->ruleLevelHelper = $ruleLevelHelper;
     }
 
@@ -194,7 +199,7 @@ class HookDocsRule implements \PHPStan\Rules\Rule
             $this->currentScope->isDeclareStrictTypes()
         );
 
-        if ($accepted->result) {
+        if ($accepted) {
             return;
         }
 

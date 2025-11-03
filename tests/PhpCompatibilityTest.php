@@ -9,13 +9,19 @@ class PhpCompatibilityTest extends TestCase
     private function runPhpCompatibilityCheck(string $version): int
     {
         $cmd = sprintf(
-            '%s --standard=PHPCompatibility --extensions=php --runtime-set testVersion %s ./src/',
+            '%s --standard=PHPCompatibility --extensions=php --runtime-set testVersion %s ./src/ ./content-paste-analyzer.php',
             escapeshellcmd(__DIR__ . '/../vendor/bin/phpcs'),
             escapeshellarg($version)
         );
 
         exec($cmd, $output, $returnVar);
         return $returnVar;
+    }
+
+    public function testPhpCompatibility74(): void
+    {
+        $returnCode = $this->runPhpCompatibilityCheck('7.4');
+        $this->assertSame(0, $returnCode, 'PHPCompatibility check failed for PHP 7.4');
     }
 
     public function testPhpCompatibility80(): void

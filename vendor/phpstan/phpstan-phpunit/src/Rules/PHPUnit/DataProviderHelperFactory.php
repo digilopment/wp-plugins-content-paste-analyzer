@@ -2,7 +2,6 @@
 
 namespace PHPStan\Rules\PHPUnit;
 
-use PHPStan\Parser\Parser;
 use PHPStan\Reflection\ReflectionProvider;
 use PHPStan\Type\FileTypeMapper;
 use PHPUnit\Framework\TestCase;
@@ -15,21 +14,16 @@ use function json_decode;
 class DataProviderHelperFactory
 {
 
-	private ReflectionProvider $reflectionProvider;
+	/** @var ReflectionProvider */
+	private $reflectionProvider;
 
-	private FileTypeMapper $fileTypeMapper;
+	/** @var FileTypeMapper */
+	private $fileTypeMapper;
 
-	private Parser $parser;
-
-	public function __construct(
-		ReflectionProvider $reflectionProvider,
-		FileTypeMapper $fileTypeMapper,
-		Parser $parser
-	)
+	public function __construct(ReflectionProvider $reflectionProvider, FileTypeMapper $fileTypeMapper)
 	{
 		$this->reflectionProvider = $reflectionProvider;
 		$this->fileTypeMapper = $fileTypeMapper;
-		$this->parser = $parser;
 	}
 
 	public function create(): DataProviderHelper
@@ -57,7 +51,7 @@ class DataProviderHelperFactory
 			}
 		}
 
-		return new DataProviderHelper($this->reflectionProvider, $this->fileTypeMapper, $this->parser, $phpUnit10OrNewer);
+		return new DataProviderHelper($this->reflectionProvider, $this->fileTypeMapper, $phpUnit10OrNewer);
 	}
 
 }

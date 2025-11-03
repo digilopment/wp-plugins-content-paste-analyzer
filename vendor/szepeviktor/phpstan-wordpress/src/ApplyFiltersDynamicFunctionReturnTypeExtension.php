@@ -16,7 +16,8 @@ use PHPStan\Type\Type;
 
 class ApplyFiltersDynamicFunctionReturnTypeExtension implements \PHPStan\Type\DynamicFunctionReturnTypeExtension
 {
-    protected HookDocBlock $hookDocBlock;
+    /** @var \SzepeViktor\PHPStan\WordPress\HookDocBlock */
+    protected $hookDocBlock;
 
     public function __construct(HookDocBlock $hookDocBlock)
     {
